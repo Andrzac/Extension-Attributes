@@ -1,0 +1,15 @@
+#!/bin/bash
+
+# Get the uptime information and extract the day count using awk and regex
+#Used to see days without reboot and used in an Extension Attribute 
+dayCount=$(uptime | awk -F "(up | days)" '{ print $2 }')
+
+# Check if dayCount is not a valid number and set it to 0
+if ! [[ "$dayCount" =~ ^[0-9]+$ ]]; then
+    dayCount="0"
+fi
+
+# Print the result in a format that could be captured by another script or command
+echo "<result>$dayCount</result>"
+
+exit 0
